@@ -17,12 +17,12 @@ const App = () => {
 
   useEffect(() => {
     axios 
-      .get('http://localhost5000/api/movies')
+      .get('http://localhost:5000/api/movies')
       .then(res => {
-        console.log(res.data)
+        console.log('Updated', res.data)
         setMovie(res.data)
       })
-      .catch(err => console.log('Updated Movies GET', err.response))
+      .catch(err => console.log('Updated Movies Error', err.response))
   }, [])
 
   return (
@@ -30,9 +30,7 @@ const App = () => {
       <SavedList list={savedList} />
       <Route 
         exact path="/" 
-        render={ props => {
-          return <MovieList { ...props } movie={ movie } />
-        }} 
+        component={ MovieList }
       />
       <Route
         path="/movies/:id"
@@ -42,9 +40,10 @@ const App = () => {
       />
       <Route
         path='/update-movie/:id' 
-        render={ props => {
+        render={props => {
           return <MovieUpdate { ...props } movie={ movie } setMovie={ setMovie } />
-        }}/>
+        }} 
+      />
     </>
   );
 };

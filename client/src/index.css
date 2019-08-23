@@ -5,6 +5,16 @@ body {
   background-color: #f2f2f2;
 }
 
+label {
+  padding-bottom: 3%;
+  padding-top: 3%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 .movie-card {
   background-color: #fff;
   border: 0;
@@ -14,6 +24,23 @@ body {
   cursor: pointer;
   position: relative;
   margin: 1rem auto;
+}
+
+.update-movie-card {
+  background-color: #fff;
+  border: 0;
+  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.24);
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+  margin: 1rem auto;
+  width: 35%;
+}
+
+.stars-map {
+  padding-bottom: 3%;
+  padding-top: 3%;
 }
 
 .movie-director {
@@ -63,8 +90,24 @@ body {
 }
 .update-button {
   position: absolute;
+  top: 210px;
+  right: 100px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightseagreen;
+}
+.update-movie-btn {
+  position: absolute;
   top: 25px;
-  right: 95px;
+  right: 35px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightseagreen;
+}
+.delete-button {
+  position: absolute;
+  top: 210px;
+  right: 25px;
   border: 1px solid grey;
   padding: 5px 10px;
   background-color: lightseagreen;

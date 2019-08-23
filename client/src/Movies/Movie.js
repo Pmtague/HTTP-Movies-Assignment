@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+
 import MovieCard from "./MovieCard";
 
 export default class Movie extends React.Component {
@@ -11,7 +12,7 @@ export default class Movie extends React.Component {
     this.fetchMovie(this.props.match.params.id);
   }
 
-  componentDidUpdate(newProps) {
+  componentWillReceiveProps(newProps) {
     if (this.props.match.params.id !== newProps.match.params.id) {
       this.fetchMovie(newProps.match.params.id);
     }
@@ -21,13 +22,26 @@ export default class Movie extends React.Component {
     axios
       .get(`http://localhost:5000/api/movies/${id}`)
       .then(res => this.setState({ movie: res.data }))
-      .catch(err => console.log(err.response));
+      .catch(err => console.log('Fetch Error!', err.response));
   };
 
   saveMovie = () => {
     const addToSavedList = this.props.addToSavedList;
     addToSavedList(this.state.movie);
   };
+
+  deleteMovie = id => {
+    axios
+      .delete(`http://localhost:5000/api/movies/${this.state.movie.id}`)
+      .then(res => {
+        console.log('Delete Call!', res.data)
+        this.props.history.push('/')
+      })
+      .catch(err => {
+        console.log('Delete Error!', err.response)
+      })
+    
+  }
 
   render() {
     if (!this.state.movie) {
@@ -36,13 +50,16 @@ export default class Movie extends React.Component {
 
     return (
       <div className="save-wrapper">
-        <MovieCard movie={this.state.movie} />
-        <div className="update-button" onClick={() => this.props.history.push(`/update-movie/${ this.state.movie.id }`)}>
+        <MovieCard { ...this.props }movie={ this.state.movie } />
+        <button className='update-button' onClick={() => this.props.history.push(`/update-movie/${this.state.movie.id}`)}>
           Update
-        </div>
-        <div className="save-button" onClick={this.saveMovie}>
+        </button>
+        <button className='delete-button' onClick={ this.deleteMovie }>
+          Delete
+        </button>
+        <button className="save-button" onClick={ this.saveMovie }>
           Save
-        </div>
+        </button>
       </div>
     );
   }
